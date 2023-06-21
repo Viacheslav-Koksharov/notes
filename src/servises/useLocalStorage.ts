@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
+import { getNotes } from 'servises/api';
 
 const useLocalStorage = (key:string) => {
-    const [state, setState] = useState(() => {
-        return JSON.parse(window.localStorage.getItem(key)|| '{}');
+    const [response, setResponse] = useState(() => {
+        return JSON.parse(window.localStorage.getItem(key) || '[]');
     });
 
     useEffect(() => {
-        window.localStorage.setItem(key, JSON.stringify(state));
-    }, [key, state]);
-    return [state, setState]
+        getNotes().then(response => setResponse(response.data.comments));
+    }, []);
+
+    window.localStorage.setItem('comments', JSON.stringify(response));
+
+    return [response, setResponse]
 };
 export default useLocalStorage;

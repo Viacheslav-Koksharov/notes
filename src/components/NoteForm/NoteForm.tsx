@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, SetStateAction } from 'react';
 import { postNote } from 'servises/api';
 import {
   FormStyles,
@@ -14,19 +14,16 @@ const NoteForm = () => {
     if (data) {
       postNote(data).then((response) => {
         const arr = window.localStorage.getItem('comments')
-
         if(arr && response.data){
           const arr1=JSON.parse(arr)
           arr1.push(response.data)
           window.localStorage.setItem("comments", JSON.stringify(arr1));
-          // console.log(arr1)
         }
-       
       });
     }
   }, [data])
 
-  const submitForm = (e: { preventDefault: () => void }) => {
+  const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const randomPostId = Math.floor(Math.random() * (150 - 1) + 1);
     const randomUserId = Math.floor(Math.random() * (100 - 1) + 1);
@@ -36,9 +33,14 @@ const NoteForm = () => {
       postId:randomPostId,
       userId: randomUserId,
   }
+
   setData(userData)
     resetForm();
   };
+
+  const handleChange = (e: { target: { value: SetStateAction<string>; }; }) =>{
+    setMessage(e.target.value);
+  }
 
   const resetForm = () => {
     setMessage('');
@@ -51,9 +53,8 @@ const NoteForm = () => {
           name='message'
           value={message}
           placeholder='Enter your message here...'
-          onChange={e => setMessage(e.target.value)}
-
-        ></MessageStyles>
+          onChange={handleChange}
+        />
       </label>
       <ButtonStyles type='submit'>Send</ButtonStyles>
     </FormStyles>

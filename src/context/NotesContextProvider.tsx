@@ -5,7 +5,7 @@ import {
 import useLocalStorage from "servises/useLocalStorage";
 
 const NotesContext = createContext<INotesContext>({
-  notes: undefined,
+  notes: [],
   setNotes: () => {},
 });
 

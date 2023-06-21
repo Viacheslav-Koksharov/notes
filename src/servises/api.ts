@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import instance from 'servises/axiosConfig';
 
 const BASE_URL = "https://dummyjson.com/comments";

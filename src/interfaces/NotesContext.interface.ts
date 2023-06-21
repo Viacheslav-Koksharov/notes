@@ -5,8 +5,8 @@ interface INotesContextProps {
 }
 
 interface INotesContext {
-    notes: INotes| undefined;
-    setNotes: (notes: INotes| undefined) => void;
+    notes: INotes[];
+    setNotes: (notes: INotes[]) => void;
 }
 
 export type { INotesContextProps, INotesContext };
