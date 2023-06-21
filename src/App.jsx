@@ -3,7 +3,7 @@ import NotesList from 'components/NotesList/NotesList';
 import NoteForm from 'components/NoteForm/NoteForm';
 import { NotesProvider } from 'context/NotesContextProvider';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <NotesProvider>
       <Container>

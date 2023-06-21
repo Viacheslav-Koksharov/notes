@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getNotes } from 'servises/api';
 
-const useLocalStorage = (key:string) => {
+const useLocalStorage = (key) => {
     const [response, setResponse] = useState(() => {
         return JSON.parse(window.localStorage.getItem(key) || '[]');
     });

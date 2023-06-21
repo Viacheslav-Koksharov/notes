@@ -1,18 +1,15 @@
 import {  createContext } from "react";
-import {
-  INotesContextProps, INotesContext
-} from "interfaces/NotesContext.interface";
 import useLocalStorage from "servises/useLocalStorage";
 
-const NotesContext = createContext<INotesContext>({
+const NotesContext = createContext({
   notes: [],
   setNotes: () => {},
 });
 
-const NotesProvider = ({ children }: INotesContextProps) => {
+const NotesProvider = ({ children }) => {
   const [notes, setNotes] = useLocalStorage("comments");
 
-  const sampleNotesContext: INotesContext = {
+  const sampleNotesContext = {
     notes,
     setNotes,
   };

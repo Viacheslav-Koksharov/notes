@@ -6,11 +6,11 @@ const getNotes = () => {
   return instance.get(BASE_URL);
 };
 
-const postNote = (note:{}) => {
+const postNote = (note) => {
   return instance.post(BASE_URL + "/add", note);
 };
 
-const deleteNote = (id:number) => {
+const deleteNote = (id) => {
   return instance.delete(BASE_URL + `/${id}`);
 };
 export { getNotes,postNote,deleteNote}

@@ -17,12 +17,14 @@ const MessageStyles = styled.textarea`
 
 const ButtonStyles = styled.button`
   position:absolute;
-  top:120px;
+  top:90px;
   left:570px;
+  width: 60px;
+  height: 40px;
   padding: 5px;
   color:white;
-  border: 2px solid black;
-  background-color:black;
+  border: 2px solid olive;
+  background-color: olive;
 `;
 
 export { FormStyles, MessageStyles,ButtonStyles };

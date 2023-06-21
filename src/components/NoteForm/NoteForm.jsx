@@ -1,4 +1,4 @@
-import { useEffect, useState, SetStateAction } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import { postNote } from 'servises/api';
 import {
   FormStyles,
@@ -8,7 +8,8 @@ import {
 
 const NoteForm = () => {
   const [message, setMessage] = useState('');
-  const [data, setData] = useState<object | null>(null);
+  const [data, setData] = useState(null);
+  const titleRef = useRef(null);
 
   useEffect(() => {
     if (data) {
@@ -23,7 +24,15 @@ const NoteForm = () => {
     }
   }, [data])
 
-  const submitForm = (e: React.SyntheticEvent) => {
+useEffect(() => {
+    const title = titleRef.current;
+
+    if (title && localStorage.getItem('message') !== null) {
+      setMessage(localStorage.getItem("message"));
+    }
+  }, []);
+
+  const submitForm = (e) => {
     e.preventDefault();
     const randomPostId = Math.floor(Math.random() * (150 - 1) + 1);
     const randomUserId = Math.floor(Math.random() * (100 - 1) + 1);
@@ -38,22 +47,28 @@ const NoteForm = () => {
     resetForm();
   };
 
-  const handleChange = (e: { target: { value: SetStateAction<string>; }; }) =>{
+  const handleChange = (e) =>{
     setMessage(e.target.value);
+  }
+  const saveText =(e)=>{
+    window.localStorage.setItem("message", e.target.value);
   }
 
   const resetForm = () => {
     setMessage('');
+    window.localStorage.removeItem("message");
   };
 
   return (
     <FormStyles onSubmit={submitForm}>
       <label>
         <MessageStyles
+          ref={titleRef}
           name='message'
           value={message}
           placeholder='Enter your message here...'
           onChange={handleChange}
+          onInput={saveText}
         />
       </label>
       <ButtonStyles type='submit'>Send</ButtonStyles>

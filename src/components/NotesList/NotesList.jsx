@@ -1,6 +1,6 @@
 import { useContext} from 'react';
-import { INotes } from 'interfaces/Notes.interface';
 import { NotesContext } from 'context/NotesContextProvider';
+import ScrollTopButton from 'components/ScrollTopButton';
 import {
   ListStyles,
   ItemStyles,
@@ -14,20 +14,20 @@ import {
 const NotesList = () => {
   const {notes, setNotes}= useContext(NotesContext);
 
-  const avatar = (str: string) => {
+  const avatar = (str) => {
     const newStr = str[0].toUpperCase();
     return newStr;
   };
 
-  const deleteNote = (_: React.SyntheticEvent, id: number) => {
-    const posts = JSON.parse(window.localStorage.getItem('comments') || '[]');
-    setNotes(posts.filter((post: { id: number }) => post.id !== id));
+  const deleteNote = (_, id) => {
+    const posts = JSON.parse(window.localStorage.getItem('comments'));
+    setNotes(posts.filter((post) => post.id !== id));
   };
 
-  return (
+  return (<>
     <ListStyles>
       {notes &&
-        notes.map((note: INotes) => (
+        notes.map((note) => (
           <ItemStyles key={note.id}>
             <ContainerStyles>
               <AvatarStyles>{avatar(note.user.username)}</AvatarStyles>
@@ -38,6 +38,8 @@ const NotesList = () => {
           </ItemStyles>
         ))}
     </ListStyles>
+    <ScrollTopButton />
+    </>
   );
 };
 
